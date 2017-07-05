@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>Hello World | 楠尘小栈-OSX软件分享基地</title>
+    <title>Steam导入本地游戏文件 | 楠尘小栈-OSX软件分享基地</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     
@@ -74,31 +74,26 @@
 	
   
     <h1 class="post-title" itemprop="name">
-      Hello World
+      Steam导入本地游戏文件
     </h1>
   
 
 	<div class='post-body mb'>
-		<p>欢迎来到 <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! 这是你的第一篇文章 <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> 如果在使用中有任何问题，您可以在故障中排除中找到答案，或者您可以在Github上询问我 <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建新的帖子"><a href="#创建新的帖子" class="headerlink" title="创建新的帖子"></a>创建新的帖子</h3><pre><code class="bash">$ hexo new &quot;文章标题&quot;
-</code></pre>
-<p>新的写作: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="运行Hexo服务"><a href="#运行Hexo服务" class="headerlink" title="运行Hexo服务"></a>运行Hexo服务</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>开启服务: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>生成: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="发布到远程站点"><a href="#发布到远程站点" class="headerlink" title="发布到远程站点"></a>发布到远程站点</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>发布: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<p>今天刚买了H1Z1原本是放在台式机里面下载的，后来直接拷贝common文件夹里面的游戏主程序到笔记本里，那么问题来了由于忘记拷贝acf文件导致steam怎么都识别不了里的游戏；因为steam的机制原因没有acf认证文件它是不知道你电脑有什么游戏的，直接运行游戏主程序会提示必须从steam里启动。</p>
+<h3 id="【Steam下载游戏的处理流程原理】"><a href="#【Steam下载游戏的处理流程原理】" class="headerlink" title="【Steam下载游戏的处理流程原理】"></a>【Steam下载游戏的处理流程原理】</h3><p>当你开始下载游戏时候，Steam会进入创建游戏本地缓存的环节，对steam库文件夹下的 steamapps/common进行检测(各种游戏存放的目录)，逐个校验游戏文件的特征码并把校验过关的文件转移到steamapps/downloading/xxxx（游戏的appid）文件夹。然后进入下载环节，在这个文件夹里下载缺失的文件。</p>
+<h3 id="【Steam导入本地游戏教程】"><a href="#【Steam导入本地游戏教程】" class="headerlink" title="【Steam导入本地游戏教程】"></a>【Steam导入本地游戏教程】</h3><p>游戏主程序已经有了现在还差个游戏所对应的acf文件，先不要着急把游戏拷贝到common文件夹里因为接下来的操作会把游戏主程序删掉。先在steam里面下载你所需要的游戏只需一小会即可关掉然后进到steam所在的目录找到steamapps文件夹，你会发现多出里一个appmanifest_xxxx.acf的文件，xxxx代表游戏的appsID。如果你安装了多款游戏，那么你的目录下就会有多个acf文件，这时候你只需看下文件的创建时间；找到最近时间段创建的acf文件。</p>
+<h3 id="用文本编辑器-ATOM-打开它找到如下字段："><a href="#用文本编辑器-ATOM-打开它找到如下字段：" class="headerlink" title="用文本编辑器(ATOM)打开它找到如下字段："></a>用文本编辑器(ATOM)打开它找到如下字段：</h3><pre><code>&quot;StateFlags&quot;    &quot;1026&quot;
+&quot;installdir&quot;        &quot;xxxxxxx&quot;
+</code></pre><p>这里有两个值,我们先看下installdir这个值后面的’’xxxxx’就是游戏名称，我们核对下游戏名称，没错的话进行下一步.</p>
+<p>“StateFlags” 的值1026代表未下载完成，我们只需将1026改成4，然后删除downloading里的所有文件，并把游戏主程序拷贝到steamapps/common里；然后打开steam你会发现刚才的继续已经变成里开始，这样就导入完成了。</p>
+<h4 id="【注意】"><a href="#【注意】" class="headerlink" title="【注意】"></a>【注意】</h4><p>如果不删除downloading里的所有文件，你的硬盘会被游戏下载的临时文件占用着空间。</p>
 
 	</div>
 	<div class="meta split">
 		
 			<span>本文总阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
 		
-		<time class="post-date" datetime="2017-06-30T04:08:28.000Z" itemprop="datePublished">2017-06-30</time>
+		<time class="post-date" datetime="2017-07-05T13:15:42.000Z" itemprop="datePublished">2017-07-05</time>
 	</div>
 </article>
 
